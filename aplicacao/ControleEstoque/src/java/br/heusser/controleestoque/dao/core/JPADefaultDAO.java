@@ -11,15 +11,17 @@ import javax.persistence.Query;
  * @author Diego Heusser
  * @param <T>
  */
-public class JPADefaultDAO<T extends Object> implements DefaultDAO<T> {
+public abstract class JPADefaultDAO<T extends Object> implements DefaultDAO<T> {
 
-    private final  SingletonJPA singleton;
+    private final SingletonJPA singleton;
     private EntityManager em;
 
-    public JPADefaultDAO(){
+    public JPADefaultDAO() {
         singleton = SingletonJPA.getInstance();
     }
-    
+
+    public abstract Class getEntityClass();
+
     @Override
     public void salvar(T t) {
         em = singleton.getEmf().createEntityManager();
@@ -30,9 +32,9 @@ public class JPADefaultDAO<T extends Object> implements DefaultDAO<T> {
     }
 
     @Override
-    public void remover(Class c, int id) {
+    public void remover(int id) {
         em = singleton.getEmf().createEntityManager();
-        T t = (T) em.find(c, id);
+        T t = (T) em.find(getEntityClass(), id);
         em.getTransaction().begin();
         em.remove(t);
         em.getTransaction().commit();
@@ -55,10 +57,15 @@ public class JPADefaultDAO<T extends Object> implements DefaultDAO<T> {
     public T buscar(String consulta, Map<String, Object> parametros) {
         em = singleton.getEmf().createEntityManager();
         Query q = em.createNamedQuery(consulta);
-        for (String chave : parametros.keySet()){
+        for (String chave : parametros.keySet()) {
             q.setParameter(chave, parametros.get(chave));
         }
-        T t = (T) q.getSingleResult();
+        T t = null;
+        try {
+            t = (T) q.getSingleResult();
+        }catch(Exception e) {
+            t = null;
+        }
         em.close();
         return t;
     }

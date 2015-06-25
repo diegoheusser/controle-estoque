@@ -11,7 +11,7 @@ public interface DefaultDAO<T> {
     
     public void salvar(T t);
     
-    public void remover(Class c, int id);
+    public void remover(int id);
     
     public List<T> listar(String consulta, Map<String,Object> parametros);
     

@@ -6,10 +6,19 @@
 
     <h:form>
         <p:menubar>
-            <p:submenu label="Cadastro">
-                <p:menuitem value="Usuario" url="/usuario/consulta.jsf"/>
-                <p:menuitem value="Produto" url="/produto/consulta.jsf"/>
-            </p:submenu>
+            <p:menuitem value="Home"
+                        url="/sistema/index.jsf"/>
+            <p:menuitem value="Usuários"
+                        rendered="#{beanLogin.usuario.administrador}"
+                        url="/sistema/usuario/consulta.jsf"/>
+            <p:menuitem value="Produtos"
+                        rendered="#{beanLogin.usuario.financeiro}"
+                        url="/sistema/produto/consulta.jsf"/>
+            <p:menuitem value="Clientes"
+                        rendered="#{beanLogin.usuario.crediario}"
+                        url="/sistema/cliente/consulta.jsf"/>
+            <p:menuitem value="Logoff"
+                        action="#{beanLogin.logoff()}"/>
         </p:menubar>
     </h:form>
 </ui:composition>

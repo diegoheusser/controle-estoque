@@ -35,11 +35,14 @@ public class Produto implements Serializable {
     @Column(name = "nome", unique = true)
     private String nome;
     
-    @Column(name = "preco_unitario")
+    @Column(name = "preco_unitario", nullable = false)
     private double precoUnitario;
     
-    @Column(name = "quantidade_estoque")
+    @Column(name = "quantidade_estoque", nullable = false)
     private int quantidadeEstoque;
+    
+    @Column(name = "unidade_medida", nullable = false)
+    private String unidadeMedida;
 
     public int getId() {
         return id;
@@ -72,6 +75,14 @@ public class Produto implements Serializable {
     public void setQuantidadeEstoque(int quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
     }
+
+    public String getUnidadeMedida() {
+        return unidadeMedida;
+    }
+
+    public void setUnidadeMedida(String unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
+    }
     
     public void salvar(){
         ProdutoDAO dao = DAOFactory.getInstance().getProdutoDAO();
@@ -80,7 +91,7 @@ public class Produto implements Serializable {
     
     public static void remover(int id){
         ProdutoDAO dao = DAOFactory.getInstance().getProdutoDAO();
-        dao.remover(Produto.class, id);
+        dao.remover(id);
     }
     
     public static List<Produto> listarTodos(){

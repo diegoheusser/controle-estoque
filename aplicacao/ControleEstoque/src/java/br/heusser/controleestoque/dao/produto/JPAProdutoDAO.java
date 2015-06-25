@@ -12,5 +12,10 @@ public class JPAProdutoDAO extends JPADefaultDAO<Produto> implements ProdutoDAO 
     public JPAProdutoDAO() {
         super();
     }
+
+    @Override
+    public Class getEntityClass() {
+        return Produto.class;
+    }
     
 }

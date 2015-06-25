@@ -19,6 +19,38 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsf</welcome-file>
+        <welcome-file>login.jsf</welcome-file>
     </welcome-file-list>
+    <filter>
+        <filter-name>FiltroAcessoSistema</filter-name>
+        <filter-class>br.heusser.controleestoque.web.filtro.FiltroAcessoSistema</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FiltroAdministrador</filter-name>
+        <filter-class>br.heusser.controleestoque.web.filtro.FiltroAdministrador</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FiltroFinanceiro</filter-name>
+        <filter-class>br.heusser.controleestoque.web.filtro.FiltroFinanceiro</filter-class>
+    </filter>
+    <filter>
+        <filter-name>FiltroCrediario</filter-name>
+        <filter-class>br.heusser.controleestoque.web.filtro.FiltroCrediario</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FiltroAcessoSistema</filter-name>
+        <url-pattern>/sistema/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FiltroAdministrador</filter-name>
+        <url-pattern>/sistema/usuario/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FiltroFinanceiro</filter-name>
+        <url-pattern>/sistema/produto/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>FiltroCrediario</filter-name>
+        <url-pattern>/sistema/cliente/*</url-pattern>
+    </filter-mapping>
 </web-app>

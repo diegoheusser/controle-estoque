@@ -5,7 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title><ui:insert name="titulo"/></title>
+        <title>Controle de Estoque</title>
         <h:outputScript library="js" name="pt_locale.js"/>
     </h:head>
     <h:body>
@@ -15,6 +15,6 @@
             <br></br>
             <ui:insert name="conteudo"/>
         </p:panel>
-        <p:growl autoUpdate="true" life="2000"/>
+        <p:growl autoUpdate="true" life="10000" showDetail="true"/>
     </h:body>
 </html>

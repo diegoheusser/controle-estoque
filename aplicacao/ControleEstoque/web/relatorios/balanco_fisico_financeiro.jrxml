@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3e77c144-a306-4ebd-ac79-17dc7997595e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="USUARIO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM Produto]]>
+	</queryString>
+	<field name="produto_id" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="preco_unitario" class="java.lang.Double"/>
+	<field name="quantidade_estoque" class="java.lang.Integer"/>
+	<field name="unidade_medida" class="java.lang.String"/>
+	<variable name="PRECO_TOTAL" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{quantidade_estoque} * $F{preco_unitario}]]></variableExpression>
+	</variable>
+	<variable name="produto_id_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{produto_id}]]></variableExpression>
+	</variable>
+	<variable name="VALOR_TOTAL_ESTOQUE" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$V{PRECO_TOTAL}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="0375313c-def4-4022-a761-5a208acc209a" x="0" y="0" width="555" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[COMERCIO DE PRODUTOS LTDA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0375313c-def4-4022-a761-5a208acc209a" x="0" y="20" width="555" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[SISTEMA DE CONTROLE DE ESTOQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0375313c-def4-4022-a761-5a208acc209a" x="0" y="56" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[BALANÇO-FÍSICO-FINANCEIRO]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="5d25012c-8817-47a6-90e6-af6016aa41a5" x="0" y="82" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f209fcf0-0015-4061-a33f-78e58f3c3934" x="1" y="0" width="204" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[PRODUTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="21e36531-9bc5-4ce5-a014-b430d143270b" x="455" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PREÇO TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="acdbede2-8ec1-4815-8c0b-1874a9d810c6" x="216" y="0" width="47" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[UND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="41de9654-ac8c-4e52-9c73-47912269e651" x="275" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PREÇO UNITÁRIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dcc0c4c0-1613-490d-8fda-9c98db05ef8a" x="385" y="0" width="54" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[QTDE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement uuid="9aa01cea-3665-4350-9157-b973e4be86a9" x="1" y="3" width="204" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4bdb0427-be61-4836-aa76-f8f96978ab48" x="216" y="3" width="47" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{unidade_medida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="aa016428-9e8e-4545-b575-882a78b03aff" x="275" y="3" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{preco_unitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b9612423-c159-4c56-8c66-fc1f74798950" x="385" y="3" width="54" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{quantidade_estoque}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a7dc27aa-3c9a-4823-897a-9a48ba6f6ecc" x="455" y="3" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PRECO_TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement uuid="49e00a44-245c-4852-9fa1-e58be1c243b4" x="455" y="7" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="06016483-56f4-4fc1-930f-8b2f545bdb7d" x="289" y="7" width="159" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{USUARIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50">
+			<staticText>
+				<reportElement uuid="cf5fc168-147c-441b-9c52-09c88d0bae8f" x="0" y="0" width="161" height="20"/>
+				<textElement/>
+				<text><![CDATA[TOTAL DE ITENS NO ESTOQUE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="81a90543-aabe-4297-9890-f8dadf027259" x="163" y="0" width="42" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{produto_id_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cf5fc168-147c-441b-9c52-09c88d0bae8f" x="1" y="20" width="160" height="20"/>
+				<textElement/>
+				<text><![CDATA[VALOR TOTAL DO ESTOQUE: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="fc301886-a6a5-49a2-8f81-49948ac5e351" x="163" y="20" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{VALOR_TOTAL_ESTOQUE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

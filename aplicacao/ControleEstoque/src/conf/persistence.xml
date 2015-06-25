@@ -2,11 +2,14 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="ControleEstoquePU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>br.heusser.controleestoque.modelo.Cliente</class>
+    <class>br.heusser.controleestoque.modelo.ItemVenda</class>
     <class>br.heusser.controleestoque.modelo.Produto</class>
     <class>br.heusser.controleestoque.modelo.Usuario</class>
+    <class>br.heusser.controleestoque.modelo.Venda</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/estoque"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/controle_estoque"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="javax.persistence.jdbc.password" value="root"/>

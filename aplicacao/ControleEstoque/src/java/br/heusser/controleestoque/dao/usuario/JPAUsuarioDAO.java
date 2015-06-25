@@ -13,4 +13,9 @@ public class JPAUsuarioDAO extends JPADefaultDAO<Usuario> implements UsuarioDAO 
         super();
     }
 
+    @Override
+    public Class getEntityClass() {
+        return Usuario.class;
+    }
+
 }

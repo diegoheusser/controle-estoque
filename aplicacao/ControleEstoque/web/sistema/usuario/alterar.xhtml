@@ -1,0 +1,56 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="/templates/template.xhtml">
+
+    <ui:define name="conteudo">
+
+        <p:panel header="Cadastro de Usuários">
+            <h:form>
+                <h:panelGrid columns="2" >
+
+                    <p:outputLabel value="Nome:"/>
+                    <p:inputText value="#{beanUsuario.usuario.nome}" 
+                                 required="true" 
+                                 requiredMessage="Campo nome é obrigatório"/>
+
+                    <p:outputLabel value="E-mail:"/>
+                    <p:inputText value="#{beanUsuario.usuario.email}" 
+                                 required="true" 
+                                 requiredMessage="Campo E-mail é obrigatório"/>
+
+                    <p:outputLabel value="Permissões"/>
+                    <p:fieldset>
+                        <p:selectBooleanCheckbox value="#{beanUsuario.usuario.administrador}" 
+                                                 itemLabel="Administrador "/>
+                        <p:selectBooleanCheckbox value="#{beanUsuario.usuario.financeiro}" 
+                                                 itemLabel="Financeiro"/>
+                        <p:selectBooleanCheckbox value="#{beanUsuario.usuario.crediario}" 
+                                                 itemLabel="Crediário"/>
+                        <p:selectBooleanCheckbox value="#{beanUsuario.usuario.vendedor}" 
+                                                 itemLabel="Vendedor"/>
+                    </p:fieldset>
+
+                    <p:commandLink value="Redefinir senha"
+                                   action="#{beanUsuario.redefinir()}"/>
+
+                </h:panelGrid>
+
+                <p:outputPanel layout="block" style="text-align: center">
+                    <p:commandButton value="Salvar"
+                                     action="#{beanUsuario.salvar()}"
+                                     ajax="false"/>
+                    <p:commandButton value="Cancelar"
+                                     action="#{beanUsuario.cancelar()}"
+                                     ajax="false"
+                                     immediate="true"/>
+                </p:outputPanel>
+
+            </h:form>
+        </p:panel>
+    </ui:define>
+
+
+</ui:composition>

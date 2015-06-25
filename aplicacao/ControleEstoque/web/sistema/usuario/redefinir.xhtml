@@ -1,0 +1,55 @@
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="/templates/template.xhtml">
+
+    <ui:define name="conteudo">
+
+        <p:panel header="Redefinir senha">
+            <h:form>
+                <h:panelGrid columns="2" >
+
+                    <p:outputLabel value="Senha Antiga"/>
+                    <p:password value="#{beanUsuario.senhaAntiga}"
+                                required="true" requiredMessage="Campo Senha é obrigatório"
+                                />
+
+                    <p:outputLabel value="Senha Nova"/>
+                    <p:password value="#{beanUsuario.senhaNova}"
+                                required="true" requiredMessage="Campo Senha é obrigatório"
+                                promptLabel="Informe a senha!"
+                                weakLabel="Fraca!" goodLabel="Boa!" strongLabel="Forte!"
+                                feedback="true"
+                                match="confirma"
+                                redisplay="true"
+                                validatorMessage="As senhas não conferem"
+                                />
+
+                    <p:outputLabel value="Confirma Senha"/>
+                    <p:password value="#{beanUsuario.senhaNova}"
+                                id="confirma"
+                                required="true"
+                                requiredMessage="Confirmação de senha é obrigatório"
+                                redisplay="true"/>
+                </h:panelGrid>
+
+                <p:outputPanel layout="block" style="text-align: center">
+                    <p:commandButton value="Salvar"
+                                     action="#{beanUsuario.salvarRedefinir()}"
+                                     ajax="false"/>
+                    <p:commandButton value="Cancelar"
+                                     action="#{beanUsuario.cancelarRedefinir()}"
+                                     ajax="false"
+                                     immediate="true"/>
+                </p:outputPanel>
+
+            </h:form>
+        </p:panel>
+    </ui:define>
+
+
+</ui:composition>
+
+

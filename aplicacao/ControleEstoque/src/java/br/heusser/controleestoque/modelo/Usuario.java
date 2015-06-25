@@ -22,38 +22,38 @@ import javax.persistence.Table;
 @Entity
 @Table
 @NamedQueries({
-    @NamedQuery(name = "usuario-listar-por-email-senha",
+    @NamedQuery(name = "usuario-buscar-por-email-senha",
             query = "SELECT u FROM Usuario u WHERE u.email = :email AND u.senha = :senha"),
     @NamedQuery(name = "usuario-listar-tudo",
             query = "SELECT u FROM Usuario u")
 })
 public class Usuario implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id")
     private int id;
-    
-    @Column
+
+    @Column(nullable = false)
     private String nome;
-    
+
     @Column(nullable = false, unique = true)
     private String email;
-    
-    @Column
+
+    @Column(nullable = false)
     private String senha;
-    
+
     //Permissões
-    @Column
+    @Column(nullable = false)
     private boolean administrador;
-    
-    @Column
+
+    @Column(nullable = false)
     private boolean financeiro;
-    
-    @Column
+
+    @Column(nullable = false)
     private boolean crediario;
-    
-    @Column
+
+    @Column(nullable = false)
     private boolean vendedor;
 
     public int getId() {
@@ -119,29 +119,53 @@ public class Usuario implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPermissoes(){
+        String p = "";
+        if(administrador){
+            p += "Administrador\n";
+        } 
+        if(financeiro){
+            p += "Financeiro\n";
+        }
+        if(crediario){
+            p += "Crediário\n";
+        }
+        if(vendedor){
+            p += "Vendedor\n";
+        }
+        return p;
+    }
     
-    public void salvar(){
+    public void salvar() {
         UsuarioDAO dao = DAOFactory.getInstance().getUsuarioDAO();
         dao.salvar(this);
     }
-    
-    public static void remover(int id){
+
+    public static void remover(int id) {
         UsuarioDAO dao = DAOFactory.getInstance().getUsuarioDAO();
-        dao.remover(Usuario.class, id);
+        dao.remover(id);
     }
-    
-    public Usuario buscar(){
+
+    public Usuario buscar() {
         UsuarioDAO dao = DAOFactory.getInstance().getUsuarioDAO();
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("email", this.email);
         parametros.put("senha", this.senha);
         return dao.buscar("usuario-listar-por-email-senha", parametros);
     }
-    
-    public static List<Usuario> listarTodos(){
+
+    public static List<Usuario> listarTodos() {
         UsuarioDAO dao = DAOFactory.getInstance().getUsuarioDAO();
         Map<String, Object> parametros = new HashMap<>();
         return dao.listar("usuario-listar-tudo", parametros);
     }
-    
+
+    public static Usuario buscar(String email, String senha) {
+        UsuarioDAO dao = DAOFactory.getInstance().getUsuarioDAO();
+        Map<String, Object> parametros = new HashMap<>();
+        parametros.put("email", email);
+        parametros.put("senha", senha);
+        return dao.buscar("usuario-buscar-por-email-senha", parametros);
+    }
 }

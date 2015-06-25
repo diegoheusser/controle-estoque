@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/templates/template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="conteudo">
+        <p:panel header="Cadastro de Cliente">
+            <h:form>
+                <h:panelGrid columns="2">
+
+                    <h:outputText value="Código:"/>
+                    <p:inputText value="#{beanCliente.cliente.id}"
+                                 disabled="true"/>
+
+                    <h:outputText value="Nome:"/>
+                    <p:inputText value="#{beanCliente.cliente.nome}"/>
+
+                    <h:outputText value="CPF:"/>
+                    <p:inputText value="#{beanCliente.cliente.cpf}"/>
+
+                    <h:outputText value="Telefone:"/>
+                    <p:inputText value="#{beanCliente.cliente.telefone}"/>
+
+                </h:panelGrid>
+
+                <p:outputPanel layout="block" style="text-align: center">
+                    <p:commandButton value="Salvar"
+                                     action="#{beanCliente.salvar()}"
+                                     ajax="false"/>
+                    <p:commandButton value="Cancelar"
+                                     action="#{beanCliente.cancelar()}"
+                                     immediate="true"
+                                     ajax="false"/>
+                </p:outputPanel>
+
+            </h:form>
+        </p:panel>
+    </ui:define>
+</ui:composition>
+

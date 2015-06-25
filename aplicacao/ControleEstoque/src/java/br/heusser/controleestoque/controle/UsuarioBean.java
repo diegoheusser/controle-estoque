@@ -1,6 +1,9 @@
 package br.heusser.controleestoque.controle;
 
+import br.heusser.controleestoque.criptografia.SHA2;
 import br.heusser.controleestoque.modelo.Usuario;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -16,53 +19,80 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class UsuarioBean {
 
-    private Usuario usuarioLogado;
+    private final String telaCadastro = "/sistema/usuario/cadastro";
+    private final String telaConsulta = "/sistema/usuario/consulta";
+    private final String telaAlterar = "/sistema/usuario/alterar";
+    private final String telaRedefinirSenha = "/sistema/usuario/redefinir";
+
     private Usuario usuario;
     private List<Usuario> usuarios;
+    private String senhaAntiga;
+    private String senhaNova;
 
     @PostConstruct
     public void init() {
-        this.usuarioLogado = new Usuario();
-        updateUsuarios();
+        this.updateUsuarios();
     }
 
-    private void updateUsuarios() {
+    public void updateUsuarios() {
         this.usuarios = Usuario.listarTodos();
     }
-    
-    public String cancelar(){
-        this.usuario = new Usuario();
-        return "/usuario/consulta";
+
+    public String alterar(Usuario usu) {
+        this.usuario = usu;
+        return telaAlterar;
+    }
+
+    public String redefinir() {
+        return telaRedefinirSenha;
+    }
+
+    public String salvarRedefinir() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        if (SHA2.sha2(senhaAntiga).equals(usuario.getSenha())) {
+            this.usuario.setSenha(senhaNova);
+        }
+        this.senhaAntiga = "";
+        this.senhaNova = "";
+        return telaAlterar;
+    }
+
+    public String cancelarRedefinir() {
+        this.senhaAntiga = "";
+        this.senhaNova = "";
+        return telaAlterar;
     }
     
-    public String alterar(Usuario u){
-        this.usuario = u;
-        return "/usuario/cadastro";
+    public String gravar() throws NoSuchAlgorithmException, UnsupportedEncodingException{
+        this.usuario.setSenha(SHA2.sha2(senhaNova));
+        return salvar();
     }
 
     public String salvar() {
         try {
             this.usuario.salvar();
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage(
-                            FacesMessage.SEVERITY_INFO, "Salvo", ""
-                    )
-            );
+            this.senhaNova = "";
             updateUsuarios();
-            return "/usuario/consulta";
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(
-                    null, new FacesMessage(
-                            FacesMessage.SEVERITY_ERROR, "Erro: ", ex.getMessage()
-                    )
-            );
-            return "/usuario/cadastro";
+            FacesContext.getCurrentInstance()
+                    .addMessage(null, new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "Erro", ex.getMessage()));
+            return telaCadastro;
         }
-
+        return telaConsulta;
     }
-    
-    public void excluir(Usuario u){
-        try{
+
+    public String cancelar() {
+        this.usuario = new Usuario();
+        return telaConsulta;
+    }
+
+    public String novo() {
+        this.usuario = new Usuario();
+        return telaCadastro;
+    }
+
+    public void excluir(Usuario u) {
+        try {
             Usuario.remover(u.getId());
             FacesContext.getCurrentInstance().addMessage(
                     null, new FacesMessage(
@@ -78,23 +108,6 @@ public class UsuarioBean {
             );
         }
     }
-    
-    public String novo(){
-        this.usuario = new Usuario();
-        return "/usuario/cadastro";
-    }
-
-    public String logar() {
-        System.out.println("Entrouu");
-        this.usuarioLogado = usuarioLogado.buscar();
-        if (usuarioLogado == null) {
-            System.out.println("nulo");
-            return "index";
-        } else {
-            return "/usuario/consulta";
-        }
-        
-    }
 
     public List<Usuario> getUsuarios() {
         return usuarios;
@@ -104,20 +117,28 @@ public class UsuarioBean {
         this.usuarios = usuarios;
     }
 
-    public Usuario getUsuarioLogado() {
-        return usuarioLogado;
-    }
-
-    public void setUsuarioLogado(Usuario usuarioLogado) {
-        this.usuarioLogado = usuarioLogado;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getSenhaAntiga() {
+        return senhaAntiga;
+    }
+
+    public void setSenhaAntiga(String senhaAntiga) {
+        this.senhaAntiga = senhaAntiga;
+    }
+
+    public String getSenhaNova() {
+        return senhaNova;
+    }
+
+    public void setSenhaNova(String senhaNova) {
+        this.senhaNova = senhaNova;
     }
 
 }

@@ -1,0 +1,57 @@
+<ui:composition    xmlns="http://www.w3.org/1999/xhtml"
+                   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                   template="/templates/template.xhtml"
+                   xmlns:p="http://primefaces.org/ui"
+                   xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="conteudo">
+        <p:dataTable value="#{beanCliente.clientes}"
+                     var="c"
+                     id="listagem"
+                     emptyMessage="Nenhum registro encontrado!">
+            <p:column headerText="Nome">
+                <h:outputText value="#{c.nome}"/>
+            </p:column>
+            
+            <p:column headerText="CPF">
+                <h:outputText value="#{c.cpf}"/>
+            </p:column>
+            
+            <p:column headerText="Telefone">
+                <h:outputText value="#{c.telefone}"/>
+            </p:column>
+
+            <p:column>
+                <h:form>
+                    <p:commandButton icon="ui-icon-pencil"
+                                     title="Editar" ajax="false"
+                                     action="#{beanCliente.alterar(c)}"/>
+                    <p:commandButton icon="ui-icon-close"
+                                     title="Excluir" update=":listagem"
+                                     actionListener="#{beanCliente.excluir(c)}">
+                        <p:confirm header="Confirmação"
+                                   message=" Deseja realmente excluir o cliente?"
+                                   icon="ui-icon-alert"/>
+                    </p:commandButton>
+                </h:form>
+            </p:column>
+        </p:dataTable>
+        <h:form>
+            <p:commandButton value="Novo Cliente" 
+                             action="#{beanCliente.novo()}"
+                             ajax="false"/>
+
+        </h:form>
+
+        <h:form>
+            <p:confirmDialog global="true">
+                <p:commandButton value="Sim" type="button"
+                                 styleClass="ui-confirmdialog-yes"
+                                 icon="ui-icon-check"/>
+                <p:commandButton value="Não" type="button"
+                                 styleClass="ui-confirmdialog-no"
+                                 icon="ui-icon-close"/>
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5208ddb6-0e28-41fe-9dc2-de4b1197da34">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="USUARIO" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM Produto]]>
+	</queryString>
+	<field name="produto_id" class="java.lang.Integer"/>
+	<field name="nome" class="java.lang.String"/>
+	<field name="preco_unitario" class="java.lang.Double"/>
+	<field name="quantidade_estoque" class="java.lang.Integer"/>
+	<field name="unidade_medida" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="18fce1c4-6131-4e9b-8ff2-82ebed868d90" x="0" y="0" width="555" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[COMERCIO DE PRODUTOS LTDA.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="18fce1c4-6131-4e9b-8ff2-82ebed868d90" x="0" y="20" width="555" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[SISTEMA DE CONTROLE DE ESTOQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="18fce1c4-6131-4e9b-8ff2-82ebed868d90" x="0" y="57" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[LISTA DE PREÇOS]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="2115d4a9-77c6-4c24-b785-69eebdc0b3e0" x="0" y="82" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="1aedd403-c391-4199-8a85-d36dc2569d06" x="0" y="2" width="366" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[PRODUTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="10fad733-402b-4f76-98ac-30d6a8a42f84" x="380" y="2" width="47" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[UND]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ffade2c0-7fdc-44b7-8559-8e27711aa3f4" x="440" y="2" width="113" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PREÇO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement uuid="479b8809-fe7c-4e09-9c6b-d8f3360eda15" x="0" y="2" width="366" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ccac78fc-e808-42d8-83c3-0f100287a708" x="380" y="2" width="47" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{unidade_medida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="62cb13b2-44b8-4578-bf79-8d165a4e1b79" x="440" y="2" width="113" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{preco_unitario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement uuid="7d680211-35a3-46ed-9e91-e64c3e29e3ba" x="455" y="15" width="100" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="42f05c83-fab0-4dd2-a0a4-ba71d305b7e5" x="287" y="15" width="168" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{USUARIO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
